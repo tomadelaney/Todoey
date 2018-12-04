@@ -10,8 +10,9 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["Find Milk", "Buy Eggos", "Destroy Demogorgon"]
+    var itemArray = ["Find Milk", "Buy Eggos", "Destroy Demogorgon"]
     let cellReuseIdentifier = "cell"
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,39 @@ class TodoListViewController: UITableViewController {
         // Make row white again
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    //MARK - Add New Items
+    
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen when usser clicks the Add Item button in UIAlert
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+            
+            print(alertTextField.text)
+            print("Closure triggered")
+            
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
 }
 
 
